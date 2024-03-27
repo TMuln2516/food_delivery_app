@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/src/components/my_button.dart';
 import 'package:food_delivery_app/src/components/my_textfield.dart';
-import 'package:food_delivery_app/src/resources/register_page.dart';
+import 'package:food_delivery_app/src/resources/home_page.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final void Function()? onTap;
+  const LoginPage({super.key, required this.onTap});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -13,6 +14,18 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
+
+  void logIn() {
+    // Authentication
+
+    // Push context
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const HomePage(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             MyButton(
               text: "Sign In",
-              onTap: () {},
+              onTap: logIn,
             ),
             const SizedBox(
               height: 10,
@@ -71,12 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                       color: Theme.of(context).colorScheme.inversePrimary),
                 ),
                 GestureDetector(
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const RegisterPage(),
-                    ),
-                  ),
+                  onTap: widget.onTap,
                   child: Text(
                     "Register now",
                     style: TextStyle(
